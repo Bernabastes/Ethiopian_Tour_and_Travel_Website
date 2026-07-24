@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 56" width="260" height="56" role="img" aria-label="Habesha Heritage Tours">
+  <defs>
+    <linearGradient id="hhtArchD" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E8B57"/>
+      <stop offset="1" stop-color="#1B6B3A"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(6,6)">
+    <rect x="0" y="0" width="44" height="44" rx="10" fill="url(#hhtArchD)"/>
+    <path d="M22 7 L22 37 M9 22 L35 22 M22 7 l-7 7 M22 7 l7 7 M22 37 l-7 -7 M22 37 l7 -7 M9 22 l7 -7 M9 22 l7 7 M35 22 l-7 -7 M35 22 l-7 7"
+          fill="none" stroke="#C8A84B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="60" y="26" font-family="Georgia, 'Playfair Display', serif" font-size="20" font-weight="700" fill="#13502B">Habesha</text>
+  <text x="60" y="45" font-family="Inter, system-ui, sans-serif" font-size="12.5" letter-spacing="2.5" fill="#A8893A">HERITAGE TOURS</text>
+</svg>
