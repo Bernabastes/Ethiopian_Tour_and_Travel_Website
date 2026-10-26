@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -32,7 +33,7 @@ export function Chrome({
     return (
       <div className="min-h-screen bg-cream">
         <div className="flex h-[var(--header-h)] items-center justify-center border-b border-black/5">
-          <a href="/" aria-label="Habesha Heritage Tours — home">
+          <Link href="/" aria-label="Habesha Heritage Tours — home">
             <Image
               src="/logo-dark.svg"
               alt="Habesha Heritage Tours"
@@ -40,7 +41,7 @@ export function Chrome({
               height={39}
               className="h-9 w-auto"
             />
-          </a>
+          </Link>
         </div>
         <main>{children}</main>
       </div>

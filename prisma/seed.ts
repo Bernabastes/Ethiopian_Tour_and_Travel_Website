@@ -1,7 +1,7 @@
 // Seeds the database from the existing mock data in /data, and creates an admin user.
 // Run with:  npm run db:seed   (after `prisma migrate dev`)
 
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { tours } from "../data/tours";
 import { destinations } from "../data/destinations";
@@ -11,6 +11,9 @@ import { galleryImages } from "../data/gallery";
 import { blogPosts } from "../data/blog";
 
 const prisma = new PrismaClient();
+
+const jsonArray = (value: unknown): Prisma.InputJsonArray =>
+  JSON.parse(JSON.stringify(value));
 
 async function main() {
   console.log("🌱 Seeding database…");
@@ -37,11 +40,11 @@ async function main() {
         description: t.description,
         highlights: t.highlights,
         images: t.images,
-        itinerary: t.itinerary,
+        itinerary: jsonArray(t.itinerary),
         included: t.included,
         excluded: t.excluded,
-        pricing: t.pricing,
-        route: t.route,
+        pricing: jsonArray(t.pricing),
+        route: jsonArray(t.route),
         destinations: t.destinations,
         featured: t.featured ?? false,
       },

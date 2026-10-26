@@ -18,7 +18,7 @@ import { reviews as staticReviews } from "@/data/reviews";
 import { galleryImages as staticGallery } from "@/data/gallery";
 import { blogPosts as staticBlog } from "@/data/blog";
 
-const useDb = () => !!process.env.DATABASE_URL;
+const hasDatabaseConfigured = () => !!process.env.DATABASE_URL;
 
 // ── Mappers (Prisma row → domain type). JSON columns are cast to known shapes. ──
 type Json = unknown;
@@ -46,7 +46,7 @@ function mapTour(r: {
 
 // ───────────────────────────── Tours ─────────────────────────────
 export async function getTours(): Promise<Tour[]> {
-  if (!useDb()) return staticTours;
+  if (!hasDatabaseConfigured()) return staticTours;
   try {
     const rows = await prisma.tour.findMany({ orderBy: { createdAt: "asc" } });
     return rows.length ? rows.map(mapTour) : staticTours;
@@ -56,7 +56,7 @@ export async function getTours(): Promise<Tour[]> {
 }
 
 export async function getTour(slug: string): Promise<Tour | undefined> {
-  if (!useDb()) return staticTours.find((t) => t.slug === slug);
+  if (!hasDatabaseConfigured()) return staticTours.find((t) => t.slug === slug);
   try {
     const r = await prisma.tour.findUnique({ where: { slug } });
     return r ? mapTour(r) : staticTours.find((t) => t.slug === slug);
@@ -75,7 +75,7 @@ export async function getToursByDestination(destSlug: string): Promise<Tour[]> {
 
 // ────────────────────────── Destinations ──────────────────────────
 export async function getDestinations(): Promise<Destination[]> {
-  if (!useDb()) return staticDestinations;
+  if (!hasDatabaseConfigured()) return staticDestinations;
   try {
     const rows = await prisma.destination.findMany({ orderBy: { createdAt: "asc" } });
     return rows.length
@@ -99,7 +99,7 @@ export async function getDestinationNameMap(): Promise<Record<string, string>> {
 
 // ───────────────────────────── Guides ─────────────────────────────
 export async function getGuides(): Promise<Guide[]> {
-  if (!useDb()) return staticGuides;
+  if (!hasDatabaseConfigured()) return staticGuides;
   try {
     const rows = await prisma.guide.findMany({ orderBy: { createdAt: "asc" } });
     return rows.length
@@ -112,7 +112,7 @@ export async function getGuides(): Promise<Guide[]> {
 
 // ───────────────────────────── Reviews ────────────────────────────
 export async function getReviews(): Promise<Review[]> {
-  if (!useDb()) return staticReviews;
+  if (!hasDatabaseConfigured()) return staticReviews;
   try {
     const rows = await prisma.review.findMany({ where: { approved: true }, orderBy: { date: "desc" } });
     return rows.length
@@ -128,7 +128,7 @@ export async function getReviews(): Promise<Review[]> {
 
 // ───────────────────────────── Gallery ────────────────────────────
 export async function getGalleryImages(): Promise<GalleryImageItem[]> {
-  if (!useDb()) return staticGallery;
+  if (!hasDatabaseConfigured()) return staticGallery;
   try {
     const rows = await prisma.galleryImage.findMany({ orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }] });
     return rows.length
@@ -155,7 +155,7 @@ function mapBlog(b: {
 
 export async function getBlogPosts(opts: { publishedOnly?: boolean } = {}): Promise<BlogPostItem[]> {
   const { publishedOnly = true } = opts;
-  if (!useDb()) {
+  if (!hasDatabaseConfigured()) {
     const all = staticBlog;
     return publishedOnly ? all.filter((p) => p.published) : all;
   }
@@ -172,7 +172,7 @@ export async function getBlogPosts(opts: { publishedOnly?: boolean } = {}): Prom
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPostItem | undefined> {
-  if (!useDb()) return staticBlog.find((p) => p.slug === slug);
+  if (!hasDatabaseConfigured()) return staticBlog.find((p) => p.slug === slug);
   try {
     const r = await prisma.blogPost.findUnique({ where: { slug } });
     return r ? mapBlog(r) : staticBlog.find((p) => p.slug === slug);

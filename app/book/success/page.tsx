@@ -38,7 +38,7 @@ export default async function BookingSuccessPage({
           </>
         )}
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href="/" className="btn-green">Back to home</a>
+          <Link href="/" className="btn-green">Back to home</Link>
           <Link href="/contact" prefetch={false} className="btn-ghost">Contact us</Link>
         </div>
       </div>
